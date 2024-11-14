@@ -9,7 +9,6 @@ spring:
          filters:
            - AuthenticationFilter
 
-
        - id: course-service
          uri: lb://COURSE-SERVICE
          predicates:

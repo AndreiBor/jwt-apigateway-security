@@ -21,7 +21,7 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public CourseResponseDto checkOrderStatus(@PathVariable String studentId) {
+    public CourseResponseDto getCourseInfo(@PathVariable String studentId) {
         return service.getCourseInfo(studentId);
     }
 }

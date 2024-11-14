@@ -1,8 +1,13 @@
 package by.javaguru.service;
 
 import by.javaguru.client.CourseServiceClient;
+import by.javaguru.client.CourseServiceFeignClient;
 import by.javaguru.dto.CourseResponseDto;
 import by.javaguru.dto.StudentDto;
+import feign.FeignException;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +15,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class StudentServiceService {
 
-    @Autowired
-    private CourseServiceClient courseServiceClient;
+    private final static Logger LOGGER = LoggerFactory.getLogger(StudentServiceService.class);
+
+    private final CourseServiceClient courseServiceClient;
+
+//    private final CourseServiceFeignClient courseServiceClient;
 
     public String greeting() {
         return "Welcome to student service";
     }
 
     public CourseResponseDto getCourseInfo(String studentId) {
-        return courseServiceClient.fetchCourseInfo(getStudentTable().get(studentId).getCourseId());
+
+
+        CourseResponseDto courseResponseDto = courseServiceClient.getCourseInfo(getStudentTable().get(studentId).getCourseId());
+
+        return courseResponseDto;
     }
 
     private Map<String, StudentDto> getStudentTable() {
